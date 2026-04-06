@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b3pf75y71wc3i"]
 
 [ext_resource type="Script" uid="uid://dsjs08hy25u3c" path="res://Scenes/collectable.gd" id="1_3rsma"]
+[ext_resource type="Texture2D" uid="uid://dphmeh0mq1q6v" path="res://TM_Salada/TM_Salada01_Normal/Image128/TMS_Salada01.png" id="2_licok"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qf81a"]
 
@@ -38,7 +39,10 @@ color = Color(4.415934, 4.415934, 0.9259381, 1)
 color_ramp = SubResource("GradientTexture1D_qpclq")
 alpha_curve = SubResource("CurveTexture_govy6")
 
-[node name="Collectable" type="Area2D" unique_id=909757770]
+[sub_resource type="CircleShape2D" id="CircleShape2D_3rsma"]
+radius = 25.317978
+
+[node name="Collectable" type="StaticBody2D" unique_id=926951345]
 collision_layer = 2
 script = ExtResource("1_3rsma")
 
@@ -55,7 +59,19 @@ lifetime = 0.3
 explosiveness = 1.0
 fixed_fps = 5
 trail_enabled = true
-trail_lifetime = 0.09999999999999999
+trail_lifetime = 0.1
 process_material = SubResource("ParticleProcessMaterial_6i7ld")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="CollectionArea" type="Area2D" parent="." unique_id=546662813]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectionArea" unique_id=1057219299]
+shape = SubResource("CircleShape2D_3rsma")
+
+[node name="Salads" type="Sprite2D" parent="." unique_id=2096455953]
+visible = false
+texture = ExtResource("2_licok")
+hframes = 4
+vframes = 4
+
+[connection signal="body_entered" from="CollectionArea" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="CollectionArea" to="." method="_on_collection_area_body_exited"]
