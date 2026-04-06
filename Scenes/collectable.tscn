@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://b3pf75y71wc3i"]
+
+[ext_resource type="Script" uid="uid://dsjs08hy25u3c" path="res://Scenes/collectable.gd" id="1_3rsma"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qf81a"]
+
+[sub_resource type="Gradient" id="Gradient_3rsma"]
+offsets = PackedFloat32Array(0.060240965, 0.24096386)
+colors = PackedColorArray(15.722855, 15.581995, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_licok"]
+gradient = SubResource("Gradient_3rsma")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_me652"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.75, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_govy6"]
+curve = SubResource("Curve_me652")
+
+[sub_resource type="Gradient" id="Gradient_v8770"]
+offsets = PackedFloat32Array(0, 0.3442623, 0.6557377)
+colors = PackedColorArray(15.018564, 18.892157, 0, 1, 0.28372335, 0.28372353, 0, 1, 0.6369093, 0.6369099, 9.62615e-07, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qpclq"]
+gradient = SubResource("Gradient_v8770")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6i7ld"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+color = Color(4.415934, 4.415934, 0.9259381, 1)
+color_ramp = SubResource("GradientTexture1D_qpclq")
+alpha_curve = SubResource("CurveTexture_govy6")
+
+[node name="Collectable" type="Area2D" unique_id=909757770]
+collision_layer = 2
+script = ExtResource("1_3rsma")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=731757788]
+shape = SubResource("CircleShape2D_qf81a")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2069976363]
+texture = SubResource("GradientTexture2D_licok")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=329927653]
+amount = 64
+sub_emitter = NodePath(".")
+lifetime = 0.3
+explosiveness = 1.0
+fixed_fps = 5
+trail_enabled = true
+trail_lifetime = 0.09999999999999999
+process_material = SubResource("ParticleProcessMaterial_6i7ld")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
