@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://dakooxb70pjok"]
+
+[ext_resource type="Script" uid="uid://o2aux12pypti" path="res://Scenes/end.gd" id="1_5j2cu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hh4b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3rsma"]
+radius = 42.0119
+
+[sub_resource type="Gradient" id="Gradient_6t6q4"]
+offsets = PackedFloat32Array(0.45783132, 0.5180723, 0.60240966)
+colors = PackedColorArray(0, 0, 0, 1, 0.6039216, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4p6b7"]
+gradient = SubResource("Gradient_6t6q4")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3ocod"]
+font_size = 8
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="End" type="StaticBody2D" unique_id=926951345]
+collision_layer = 2
+script = ExtResource("1_5j2cu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=731757788]
+shape = SubResource("RectangleShape2D_7hh4b")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=546662813]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1057219299]
+shape = SubResource("CircleShape2D_3rsma")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=158607322]
+texture = SubResource("GradientTexture2D_4p6b7")
+
+[node name="Label" type="Label" parent="." unique_id=144399110]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -6.0
+offset_right = 28.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "END THE
+DAY?"
+label_settings = SubResource("LabelSettings_3ocod")
+horizontal_alignment = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1981795513]
+visible = false
+
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1999514521]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Panel" unique_id=2056487845]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/CenterContainer" unique_id=1642587870]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/CenterContainer/VBoxContainer" unique_id=1553441467]
+layout_mode = 2
+text = "DAY COMPLETE!"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="CanvasLayer/Panel/CenterContainer/VBoxContainer" unique_id=980641542]
+layout_mode = 2
+text = "Your Score?
+"
+horizontal_alignment = 1
+
+[node name="Confirm" type="Button" parent="CanvasLayer/Panel/CenterContainer/VBoxContainer" unique_id=782933790]
+layout_mode = 2
+text = "CONTINUE"
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]
+[connection signal="pressed" from="CanvasLayer/Panel/CenterContainer/VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]

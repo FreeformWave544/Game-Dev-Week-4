@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cqm4jf0xk2lo6"]
+
+[ext_resource type="Script" uid="uid://bffx4nrhusv5s" path="res://Scenes/sink.gd" id="1_wakns"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7hh4b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3rsma"]
+radius = 25.317978
+
+[sub_resource type="Gradient" id="Gradient_wakns"]
+colors = PackedColorArray(0, 0.6392157, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_7hh4b"]
+noise_type = 5
+fractal_type = 3
+fractal_gain = 1.02
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wakns"]
+width = 15
+height = 17
+noise = SubResource("FastNoiseLite_7hh4b")
+color_ramp = SubResource("Gradient_wakns")
+
+[sub_resource type="LabelSettings" id="LabelSettings_3ocod"]
+font_size = 6
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="sink" type="StaticBody2D" unique_id=926951345]
+collision_layer = 2
+script = ExtResource("1_wakns")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=731757788]
+shape = SubResource("RectangleShape2D_7hh4b")
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=546662813]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=1057219299]
+shape = SubResource("CircleShape2D_3rsma")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1668699474]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=158607322]
+texture = SubResource("NoiseTexture2D_wakns")
+offset = Vector2(0, 0.7)
+
+[node name="Label" type="Label" parent="." unique_id=144399110]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -13.5
+offset_top = -16.0
+offset_right = 13.5
+offset_bottom = -9.0
+grow_horizontal = 2
+text = "SINK"
+label_settings = SubResource("LabelSettings_3ocod")
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="InteractArea" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="InteractArea" to="." method="_on_interact_area_body_exited"]

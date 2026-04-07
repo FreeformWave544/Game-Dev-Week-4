@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cfm3b4bxhxikv" path="res://icon.svg" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://bjl46owdo3lq5" path="res://Scenes/Entities/player.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://b3pf75y71wc3i" path="res://Scenes/collectable.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://cqm4jf0xk2lo6" path="res://Scenes/sink.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://cwpuocuco0qcb" path="res://Scenes/plate.tscn" id="5_kry3j"]
+[ext_resource type="PackedScene" uid="uid://dakooxb70pjok" path="res://Scenes/end.tscn" id="6_21xkr"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bo1nx"]
 noise_type = 2
@@ -164,3 +167,13 @@ position = Vector2(977, 288)
 
 [node name="Collectable8" parent="." unique_id=1570606043 instance=ExtResource("3_8gbba")]
 position = Vector2(913, 288)
+
+[node name="sink" parent="." unique_id=820440262 instance=ExtResource("4_jjvhh")]
+position = Vector2(1681, 352)
+scale = Vector2(2, 2)
+
+[node name="sink2" parent="." unique_id=344319043 instance=ExtResource("5_kry3j")]
+position = Vector2(1688, 155)
+
+[node name="End" parent="." unique_id=268001923 instance=ExtResource("6_21xkr")]
+position = Vector2(196, 195)
