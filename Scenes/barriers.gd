@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Node
 
 var interactable := false
 func _on_body_entered(body: Node2D) -> void:
@@ -6,13 +6,8 @@ func _on_body_entered(body: Node2D) -> void:
 		interactable = true
 		while interactable and not Input.is_action_pressed("interact"):
 			await get_tree().process_frame
+			$FirewallCollider/ColorRect.color.a += 0.01
 		if Input.is_action_just_pressed("interact"):
-			body.sink += 1
-			modulate.b = 1.0
-			modulate.r = 0.0
-			body._update_UI()
-			await get_tree().create_timer(0.5).timeout
-			modulate.b = 1.0
-			modulate.r = 1.0
+			$Firewall/Panel.visible = true
 
 func _on_interact_area_body_exited(_body: Node2D) -> void: interactable = false
